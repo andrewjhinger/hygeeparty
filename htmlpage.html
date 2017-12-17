@@ -1,0 +1,568 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href='https://fonts.googleapis.com/css?family=La+Belle+Aurore' rel='stylesheet' type='text/css'>
+    <title>Simple Transactional Email</title>
+    <style>
+          /* -------------------------------------
+            GLOBAL RESETS
+        ------------------------------------- */
+          img {
+              border: none;
+              -ms-interpolation-mode: bicubic;
+              max-width: 100%;
+          }
+
+        body {
+            background-color: #111111;
+            font-family:'La Belle Aurore';
+            -webkit-font-smoothing: antialiased;
+            font-size: 16px;
+            line-height: 1.4;
+            margin: 0;
+            padding: 0;
+            -ms-text-size-adjust: 100%;
+            -webkit-text-size-adjust: 100%;
+        }
+
+          table {
+              border-collapse: separate;
+              mso-table-lspace: 0pt;
+              mso-table-rspace: 0pt;
+              width: 100%;
+          }
+
+            table td {
+                font-family: 'La Belle Aurore';
+                font-size: 16px;
+                vertical-align: top;
+            }
+
+          /* -------------------------------------
+            BODY & CONTAINER
+        ------------------------------------- */
+
+        .body {
+            background-color: #111111;
+            width: 100%;
+        }
+
+          /* Set a max-width, and make it display as block so it will automatically stretch to that width, but will also shrink down on a phone or something */
+          .container {
+              display: block;
+              Margin: 0 auto !important;
+              /* makes it centered */
+              max-width: 580px;
+              padding: 10px;
+              width: 580px;
+          }
+
+          /* This should also be a block element, so that it will fill 100% of the .container */
+          .content {
+              box-sizing: border-box;
+              display: block;
+              Margin: 0 auto;
+              max-width: 580px;
+              padding: 10px;
+          }
+
+          /* -------------------------------------
+            HEADER, FOOTER, MAIN
+        ------------------------------------- */
+          .main {
+              background: #ffffff;
+              border-radius: 3px;
+              width: 100%;
+          }
+
+          .wrapper {
+              box-sizing: border-box;
+              padding: 20px;
+          }
+
+          .content-block {
+              padding-bottom: 10px;
+              padding-top: 10px;
+          }
+
+          .footer {
+              clear: both;
+              Margin-top: 10px;
+              text-align: center;
+              width: 100%;
+          }
+
+              .footer td,
+              .footer p,
+              .footer span,
+              .footer a {
+                  color: #999999;
+                  font-size: 12px;
+                  text-align: center;
+              }
+
+          /* -------------------------------------
+            TYPOGRAPHY
+        ------------------------------------- */
+        h1,
+        h2,
+        h3,
+        h4 {
+            color: #000000;
+            font-family: 'La Belle Aurore';
+            font-weight: 400;
+            line-height: 1.4;
+            margin: 0;
+            Margin-bottom: 30px;
+        }
+
+          h1 {
+              font-size: 35px;
+              font-weight: 300;
+              text-align: center;
+              text-transform: capitalize;
+          }
+
+        p,
+        ul,
+        ol {
+            font-family: 'La Belle Aurore';
+            font-size: 14px;
+            font-weight: normal;
+            margin: 0;
+            Margin-bottom: 15px;
+        }
+
+              p li,
+              ul li,
+              ol li {
+                  list-style-position: inside;
+                  margin-left: 5px;
+              }
+
+          a {
+              color: #3498db;
+              text-decoration: underline;
+          }
+
+          /* -------------------------------------
+            BUTTONS
+        ------------------------------------- */
+          .btn {
+              box-sizing: border-box;
+              width: 100%;
+          }
+
+              .btn > tbody > tr > td {
+                  padding-bottom: 15px;
+              }
+
+              .btn table {
+                  width: auto;
+              }
+
+                  .btn table td {
+                      background-color: #ffffff;
+                      border-radius: 5px;
+                      text-align: center;
+                  }
+
+              .btn a {
+                  background-color: #ffffff;
+                  border: solid 1px #3498db;
+                  border-radius: 5px;
+                  box-sizing: border-box;
+                  color: #3498db;
+                  cursor: pointer;
+                  display: inline-block;
+                  font-size: 14px;
+                  font-weight: bold;
+                  margin: 0;
+                  padding: 12px 25px;
+                  text-decoration: none;
+                  text-transform: capitalize;
+              }
+
+          .btn-primary table td {
+              background-color: #3498db;
+          }
+
+          .btn-primary a {
+              background-color: #3498db;
+              border-color: #3498db;
+              color: #ffffff;
+          }
+
+          /* -------------------------------------
+            OTHER STYLES THAT MIGHT BE USEFUL
+        ------------------------------------- */
+          .last {
+              margin-bottom: 0;
+          }
+
+          .first {
+              margin-top: 0;
+          }
+
+          .align-center {
+              text-align: center;
+          }
+
+          .align-right {
+              text-align: right;
+          }
+
+          .align-left {
+              text-align: left;
+          }
+
+          .clear {
+              clear: both;
+          }
+
+          .mt0 {
+              margin-top: 0;
+          }
+
+          .mb0 {
+              margin-bottom: 0;
+          }
+
+          .preheader {
+              color: transparent;
+              display: none;
+              height: 0;
+              max-height: 0;
+              max-width: 0;
+              opacity: 0;
+              overflow: hidden;
+              mso-hide: all;
+              visibility: hidden;
+              width: 0;
+          }
+
+          .powered-by a {
+              text-decoration: none;
+          }
+
+          hr {
+              border: 0;
+              border-bottom: 1px solid #f6f6f6;
+              Margin: 20px 0;
+          }
+
+        .candle {
+            font-size: 2em;
+            margin: 0 auto;
+            width: 8em;
+            height: 8em;
+            position: fixed;
+            left: 40%;
+            top: 50%;
+            border-radius: 50%/20%;
+            background: #000;
+            background-image: -moz-linear-gradient(-90deg, #555, rgba(255, 255, 255, 0.2));
+            background-image: -webkit-linear-gradient(-90deg, #555, rgba(255, 255, 255, 0.2));
+            background-image: linear-gradient(to bottom, #555, rgba(255, 255, 255, 0.2));
+            box-shadow: 0 0.5em 1em 0.5em rgba(0, 0, 0, 0.5), 0 -1em 2em rgba(0, 0, 0, 0.9) inset, 0em -2em 4em rgba(200,100,0,0.5) inset, 0 -4em 2em 1em rgba(200, 120, 0, 0.7) inset, 0em 0em 2em rgba(200,200,200,0.5) inset, 0 -5.1em 0.3em 0.2em rgba(200, 100, 0, 0.5) inset, 0em -0.1em 0.5em rgba(0,0,0,0.9) inset, 0 0 0 4em rgba(255, 255, 250, 0.8) inset, 0 -6em 2em 0em rgba(50,30,0,0.7), 0 0 4em 5em rgba(50,30,0,0.2), 0 0 0 0 transparent;
+        }
+
+            .candle:before {
+                content: "";
+                display: block;
+                width: 20%;
+                height: 70%;
+                position: relative;
+                top: -60%;
+                margin: 0 auto;
+                border-radius: 30% 100% 50% 50% / 60% 60% 60% 60%;
+                box-shadow: 0em 2em 1em rgba(255, 255, 0, 0.5) inset, 0em 3em 0.5em rgba(250, 100, 50, 0.8) inset, 0 0 0.5em 0 rgba(255, 255, 0, 0.7);
+                background: transparent;
+                background-image: -moz-linear-gradient(-90deg, transparent,rgba(0,100,100,0.3),transparent);
+                background-image: -webkit-linear-gradient(-90deg, transparent,rgba(0,100,100,0.3),transparent);
+                background-image: linear-gradient(-90deg, transparent,rgba(0,100,100,0.3),transparent);
+                -moz-transform: skewX(0deg) skewY(0deg);
+                -webkit-transform: skewX(0deg) skewY(0deg);
+                transform: skewX(0deg) skewY(0deg);
+                -moz-transform-origin: center bottom;
+                -webkit-transform-origin: center bottom;
+                transform-origin: center bottom;
+                -moz-animation: air 2s ease-in infinite;
+                -webkit-animation: air 2s ease-in infinite;
+                animation: air 2s ease-in infinite;
+            }
+
+            .candle:after {
+                content: "";
+                display: block;
+                width: 0.2em;
+                height: 1.3em;
+                position: absolute;
+                top: -5%;
+                left: 49%;
+                background: #fff;
+                background-image: -moz-linear-gradient(-90deg,#311,#eec 70%,#eec);
+                background-image: -webkit-linear-gradient(-90deg,#311,#eec 70%,#eec);
+                background-image: linear-gradient(to bottom,#311,#eec 70%,#eec);
+            }
+
+        @-moz-keyframes air {
+            0% {
+                -moz-transform: skewX(0deg) skewY(0deg) scale(1,1);
+            }
+
+            31% {
+                -moz-transform: skewX(0deg) skewY(0deg) scale(1,1);
+            }
+
+            32% {
+                -moz-transform: skewX(0deg) skewY(0deg) scale(-1.2,1.5);
+            }
+
+            33% {
+                -moz-transform: skewX(5deg) skewY(5deg) scale(1,0.9);
+            }
+
+            34% {
+                -moz-transform: skewX(-1deg) skewY(-1deg) scale(1,1);
+            }
+
+            36% {
+                -moz-transform: skewX(0deg) skewY(0deg);
+            }
+
+            98% {
+                -moz-transform: skewX(0deg) skewY(0deg);
+            }
+
+            99% {
+                -moz-transform: skewX(2deg) skewY(2deg);
+            }
+
+            100% {
+                -moz-transform: skewX(0deg) skewY(0deg) scale(0.9,1.4);
+            }
+        }
+
+        @-webkit-keyframes air {
+            0% {
+                -webkit-transform: skewX(0deg) skewY(0deg) scale(1,1);
+            }
+
+            31% {
+                -webkit-transform: skewX(0deg) skewY(0deg) scale(1,1);
+            }
+
+            32% {
+                -webkit-transform: skewX(0deg) skewY(0deg) scale(-1.2,1.5);
+            }
+
+            33% {
+                -webkit-transform: skewX(5deg) skewY(5deg) scale(1,0.9);
+            }
+
+            34% {
+                -webkit-transform: skewX(-1deg) skewY(-1deg) scale(1,1);
+            }
+
+            36% {
+                -webkit-transform: skewX(0deg) skewY(0deg);
+            }
+
+            98% {
+                -webkit-transform: skewX(0deg) skewY(0deg);
+            }
+
+            99% {
+                -webkit-transform: skewX(2deg) skewY(2deg);
+            }
+
+            100% {
+                -webkit-transform: skewX(0deg) skewY(0deg) scale(0.9,1.4);
+            }
+        }
+
+        @keyframes air {
+            0% {
+                transform: skewX(0deg) skewY(0deg) scale(1,1);
+            }
+
+            31% {
+                transform: skewX(0deg) skewY(0deg) scale(1,1);
+            }
+
+            32% {
+                transform: skewX(0deg) skewY(0deg) scale(-1.2,1.5);
+            }
+
+            33% {
+                transform: skewX(5deg) skewY(5deg) scale(1,0.9);
+            }
+
+            34% {
+                transform: skewX(-1deg) skewY(-1deg) scale(1,1);
+            }
+
+            36% {
+                transform: skewX(0deg) skewY(0deg);
+            }
+
+            98% {
+                transform: skewX(0deg) skewY(0deg);
+            }
+
+            99% {
+                transform: skewX(2deg) skewY(2deg);
+            }
+
+            100% {
+                transform: skewX(0deg) skewY(0deg) scale(0.9,1.4);
+            }
+        }
+          /* -------------------------------------
+            RESPONSIVE AND MOBILE FRIENDLY STYLES
+        ------------------------------------- */
+          @media only screen and (max-width: 620px) {
+              table[class=body] h1 {
+                  font-size: 28px !important;
+                  margin-bottom: 10px !important;
+              }
+
+              table[class=body] p,
+              table[class=body] ul,
+              table[class=body] ol,
+              table[class=body] td,
+              table[class=body] span,
+              table[class=body] a {
+                  font-size: 16px !important;
+              }
+
+              table[class=body] .wrapper,
+              table[class=body] .article {
+                  padding: 10px !important;
+              }
+
+              table[class=body] .content {
+                  padding: 0 !important;
+              }
+
+              table[class=body] .container {
+                  padding: 0 !important;
+                  width: 100% !important;
+              }
+
+              table[class=body] .main {
+                  border-left-width: 0 !important;
+                  border-radius: 0 !important;
+                  border-right-width: 0 !important;
+              }
+
+              table[class=body] .btn table {
+                  width: 100% !important;
+              }
+
+              table[class=body] .btn a {
+                  width: 100% !important;
+              }
+
+              table[class=body] .img-responsive {
+                  height: auto !important;
+                  max-width: 100% !important;
+                  width: auto !important;
+              }
+          }
+
+          /* -------------------------------------
+            PRESERVE THESE STYLES IN THE HEAD
+        ------------------------------------- */
+          @media all {
+              .ExternalClass {
+                  width: 100%;
+              }
+
+                  .ExternalClass,
+                  .ExternalClass p,
+                  .ExternalClass span,
+                  .ExternalClass font,
+                  .ExternalClass td,
+                  .ExternalClass div {
+                      line-height: 100%;
+                  }
+
+              .apple-link a {
+                  color: inherit !important;
+                  font-family: inherit !important;
+                  font-size: inherit !important;
+                  font-weight: inherit !important;
+                  line-height: inherit !important;
+                  text-decoration: none !important;
+              }
+
+              .btn-primary table td:hover {
+                  background-color: #34495e !important;
+              }
+
+              .btn-primary a:hover {
+                  background-color: #34495e !important;
+                  border-color: #34495e !important;
+              }
+          }
+    </style>
+</head>
+<body class="">
+    <table border="0" cellpadding="0" cellspacing="0" class="body">
+        <tr>
+            <td>&nbsp;</td>
+            <td class="container">
+                <div class="content">
+
+                    <!-- START CENTERED WHITE CONTAINER -->
+                    <span class="preheader">This is preheader text. Some clients will show this text as a preview.</span>
+                    <table class="main">
+
+                        <!-- START MAIN CONTENT AREA -->
+                        <tr>
+                            <td class="wrapper">
+                                <table border="0" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td>
+                                            <p>Hi dear friend,</p>
+                                            <p>This New Year’s Eve we would like to recognize the simple pleasures of warmth, comfort foods and the presence of our friends. </p>
+                                            <p>Come in your coziest sweater and fuzzy socks to our home and prepare to allow yourself an evening free of stress and ambition in a safe space.</p>
+                                            <p>Dinner will be served at 7pm and we'll continue the evening with games, conversation and sparklers. We’ll be serving a lingonberry cocktail though you’re more than welcome to bring what you enjoy most.</p> 
+                                            <p>Hope you can make it! If you're able to make the dinner portion, we ask that you RSVP.</p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+
+                        <!-- END MAIN CONTENT AREA -->
+                    </table>
+
+                    <!-- START FOOTER -->
+                    <div class="footer">
+                        <table border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td class="content-block">
+                                    <div class="candle"></div>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="content-block powered-by">
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <!-- END FOOTER -->
+                    <!-- END CENTERED WHITE CONTAINER -->
+                </div>
+            </td>
+            <td>&nbsp;</td>
+        </tr>
+    </table>
+</body>
+</html>
